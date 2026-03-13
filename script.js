@@ -7,6 +7,15 @@ const signupForm = document.getElementById('signup-form');
 const emailInput = document.getElementById('email');
 const formMessage = document.getElementById('form-message');
 const ctaLinks = document.querySelectorAll('a[href="#waitlist"], a[href="#experience"]');
+const trackedCtas = document.querySelectorAll('.btn');
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window.gtag !== 'function') {
+    return;
+  }
+
+  window.gtag('event', eventName, params);
+}
 
 if (navToggle && siteNav) {
   navToggle.addEventListener('click', () => {
@@ -23,6 +32,24 @@ navLinks.forEach((link) => {
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.setAttribute('aria-label', '메뉴 열기');
     }
+  });
+});
+
+trackedCtas.forEach((button) => {
+  button.addEventListener('click', () => {
+    const ctaName = button.textContent.trim();
+    const ctaLocation =
+      button.closest('.hero') ? 'hero' :
+      button.closest('.site-header') ? 'header' :
+      button.closest('#waitlist') ? 'waitlist' :
+      button.closest('.final-cta') ? 'final_cta' :
+      'general';
+
+    trackEvent('cta_click', {
+      cta_name: ctaName,
+      cta_location: ctaLocation,
+      link_target: button.getAttribute('href') || '',
+    });
   });
 });
 
@@ -85,6 +112,12 @@ if (signupForm && emailInput && formMessage) {
     formMessage.textContent = '신청이 완료되었습니다. 얼리 액세스 소식을 가장 먼저 전해드릴게요.';
     formMessage.classList.add('success');
     formMessage.classList.remove('error');
+
+    trackEvent('waitlist_submit', {
+      form_name: 'early_access_waitlist',
+      submit_location: 'waitlist',
+    });
+
     signupForm.reset();
   });
 

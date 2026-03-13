@@ -175,7 +175,7 @@
 
                     <div class="phone-cta-stack">
                       <a class="phone-cta primary" href="#experience">예시 포트폴리오 보기</a>
-                      <a class="phone-cta secondary" href="#waitlist">내 자산으로 분석하기</a>
+                      <a class="phone-cta secondary" href="#lead-form" data-open-lead-form="hero">내 자산으로 분석하기</a>
                     </div>
 
                     <div class="hero-mini-proof">
@@ -351,7 +351,7 @@
                     </div>
                     <div class="phone-cta-stack">
                       <a class="phone-cta primary" href="#experience">예시 포트폴리오 보기</a>
-                      <a class="phone-cta secondary" href="#waitlist">내 자산으로 분석하기</a>
+                      <a class="phone-cta secondary" href="#lead-form" data-open-lead-form="mobile_preview">내 자산으로 분석하기</a>
                     </div>
                   </div>
                 </div>
@@ -563,7 +563,13 @@
             </p>
           </div>
 
-          <form class="signup-form" id="signup-form" novalidate>
+          <form
+            class="signup-form"
+            id="signup-form"
+            action="https://formspree.io/f/xeerkdej"
+            method="POST"
+            novalidate
+          >
             <label class="sr-only" for="email">이메일 주소</label>
             <input
               id="email"
@@ -573,6 +579,12 @@
               aria-describedby="form-message"
               required
             >
+            <input type="hidden" name="interest_type" value="early_access">
+            <input type="hidden" name="source_page" value="landing_page">
+            <input type="hidden" name="cta_location" value="waitlist">
+            <input type="hidden" name="cta_name" value="얼리 액세스 신청하기">
+            <input type="hidden" name="subject" value="Clarity Invest Early Access">
+            <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off">
             <button class="btn btn-primary" type="submit">얼리 액세스 신청하기</button>
           </form>
           <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
@@ -664,6 +676,90 @@
         <p class="copyright">© 2026 Clarity Invest. All rights reserved.</p>
       </div>
     </footer>
+  </div>
+
+  <div class="modal" id="lead-form-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-lead-form></div>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="lead-form-title">
+      <button class="modal-close" type="button" aria-label="닫기" data-close-lead-form>×</button>
+      <div class="modal-copy">
+        <p class="eyebrow">내 자산 기준 분석 관심 등록</p>
+        <h2 id="lead-form-title">출시되면 가장 먼저 안내받으세요</h2>
+        <p class="section-intro">
+          내 자산으로 분석하기 기능에 관심 있는 사용자를 우선 안내하기 위한 간단한 신청 폼입니다.
+        </p>
+      </div>
+
+      <form
+        class="lead-form"
+        id="lead-form"
+        action="https://formspree.io/f/xeerkdej"
+        method="POST"
+        novalidate
+      >
+        <div class="lead-grid">
+          <label class="field">
+            <span>이메일</span>
+            <input type="email" name="email" id="lead-email" placeholder="you@example.com" required>
+          </label>
+
+          <label class="field">
+            <span>이름</span>
+            <input type="text" name="name" id="lead-name" placeholder="선택 입력">
+          </label>
+
+          <label class="field">
+            <span>투자 경험</span>
+            <select name="experience_level" id="experience-level" required>
+              <option value="">선택해주세요</option>
+              <option value="none">투자 경험 없음</option>
+              <option value="lt_1y">1년 미만</option>
+              <option value="gt_1y">1년 이상</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>투자금 규모</span>
+            <select name="investment_amount_range" id="investment-amount" required>
+              <option value="">선택해주세요</option>
+              <option value="lt_1m">100만원 미만</option>
+              <option value="1m_10m">100만원 이상 1,000만원 이하</option>
+              <option value="gt_10m">1,000만원 초과</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>가장 궁금한 것</span>
+          <select name="primary_goal" id="primary-goal" required>
+            <option value="">선택해주세요</option>
+            <option value="understand_portfolio">포트폴리오 구성 이유 이해</option>
+            <option value="learn_investing">투자 개념과 원리 학습</option>
+            <option value="ask_ai_questions">AI에게 투자 질문하기</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>추가로 남기고 싶은 말</span>
+          <textarea name="message" id="lead-message" rows="4" placeholder="어떤 분석이 가장 궁금한지 자유롭게 적어주세요."></textarea>
+        </label>
+
+        <input type="hidden" name="interest_type" value="my_asset_analysis">
+        <input type="hidden" name="source_page" value="landing_page">
+        <input type="hidden" name="cta_location" id="lead-cta-location" value="unknown">
+        <input type="hidden" name="cta_name" id="lead-cta-name" value="내 자산으로 분석하기">
+        <input type="hidden" name="device_type" id="lead-device-type" value="desktop">
+        <input type="hidden" name="submitted_at" id="lead-submitted-at" value="">
+        <input type="hidden" name="subject" value="Clarity Invest My Asset Analysis Interest">
+        <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off">
+
+        <div class="lead-actions">
+          <button class="btn btn-secondary" type="button" data-close-lead-form>닫기</button>
+          <button class="btn btn-primary" type="submit">분석 출시 알림 받기</button>
+        </div>
+        <p class="form-message" id="lead-form-message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
   </div>
 
   <script src="script.js"></script>

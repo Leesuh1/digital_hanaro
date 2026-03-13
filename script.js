@@ -7,7 +7,7 @@ const signupForm = document.getElementById('signup-form');
 const emailInput = document.getElementById('email');
 const formMessage = document.getElementById('form-message');
 const ctaLinks = document.querySelectorAll('a[href="#waitlist"], a[href="#experience"]');
-const trackedCtas = document.querySelectorAll('.btn');
+const trackedCtas = document.querySelectorAll('.btn, .phone-cta');
 
 function trackEvent(eventName, params = {}) {
   if (typeof window.gtag !== 'function') {
@@ -41,6 +41,7 @@ trackedCtas.forEach((button) => {
     const ctaLocation =
       button.closest('.hero') ? 'hero' :
       button.closest('.site-header') ? 'header' :
+      button.closest('#mobile-preview') ? 'mobile_preview' :
       button.closest('#waitlist') ? 'waitlist' :
       button.closest('.final-cta') ? 'final_cta' :
       'general';
